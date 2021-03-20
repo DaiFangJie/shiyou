@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 @Controller
 public class KhController {
-
     @Autowired
     KhService khService;
 
@@ -31,7 +30,7 @@ public class KhController {
         System.out.println(kh.getId());
         //根据userId查询
         kh kh1=khService.selectById(kh);
-
+        System.out.println(kh1.getUrl()+"---------------------");
         //把数据传到前端
         m.addAttribute("kh",kh1);
         return "cate-edit";
@@ -66,6 +65,16 @@ public class KhController {
         HashMap<String,Object> map = new HashMap<String,Object>();
         //访问注册方法
         String info = khService.add(kh);
+        map.put("info",info);
+        return map;
+    }
+
+    //处理删除的ajax请求
+    @RequestMapping("/del")
+    @ResponseBody
+    public HashMap<String,Object> del(kh kh){
+        HashMap<String,Object> map=new HashMap<String,Object>();
+        String info=khService.del(kh);
         map.put("info",info);
         return map;
     }
